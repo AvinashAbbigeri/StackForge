@@ -1,55 +1,127 @@
 package main
 
 import (
+	"encoding/json"
 	"fmt"
 	"os"
+	"path/filepath"
 
 	"StackForge/engine"
 )
 
 func main() {
-	if len(os.Args) < 4 || os.Args[1] != "init" {
-		fmt.Println("Usage: stackforge init <project-name> <module> [module...]")
+	exe, _ := os.Executable()
+	root := filepath.Dir(exe)
+
+	if len(os.Args) < 2 {
+		fmt.Println("Usage:")
+		fmt.Println("  stackforge init <project> <modules|presets>")
+		fmt.Println("  stackforge add <modules>")
+		fmt.Println("  stackforge list")
+		fmt.Println("  stackforge presets")
+		return
+	}
+
+	cmd := os.Args[1]
+
+	// ---------------- LIST ----------------
+	if cmd == "list" {
+		mods, _ := engine.LoadModules(root + "/modules")
+		for _, m := range engine.ListModules(mods) {
+			fmt.Println(m)
+		}
+		return
+	}
+
+	// ---------------- PRESETS ----------------
+	if cmd == "presets" {
+		presets, _ := engine.LoadPresets(root + "/presets.json")
+		for _, p := range engine.PresetNames(presets) {
+			fmt.Println(p)
+		}
+		return
+	}
+
+	// ---------------- ADD ----------------
+	if cmd == "add" {
+		if len(os.Args) < 3 {
+			fmt.Println("Usage: stackforge add <module> [module...]")
+			return
+		}
+
+		manifest, err := engine.LoadManifest(".stackforge/manifest.json")
+		if err != nil {
+			panic(err)
+		}
+
+		manifest.Modules = engine.Unique(append(manifest.Modules, os.Args[2:]...))
+
+		modulesMap, _ := engine.LoadModules(root + "/modules")
+		resolved, err := engine.Resolve(manifest.Modules, modulesMap)
+		if err != nil {
+			panic(err)
+		}
+
+		osinfo := engine.DetectOS()
+
+		base, _ := os.ReadFile(root + "/templates/base.sh")
+		script, err := engine.Assemble(resolved, string(base), osinfo)
+		if err != nil {
+			panic(err)
+		}
+
+		os.WriteFile(".stackforge/setup.sh", []byte(script), 0755)
+		engine.SaveManifest(".stackforge/manifest.json", manifest)
+
+		fmt.Println("Modules added. Run:")
+		fmt.Println("  bash .stackforge/setup.sh")
+		return
+	}
+
+	// ---------------- INIT ----------------
+	if cmd != "init" {
+		fmt.Println("Unknown command:", cmd)
 		return
 	}
 
 	projectName := os.Args[2]
-	modules := os.Args[3:]
+	input := os.Args[3:]
 
-	// Create project directory
-	if err := os.Mkdir(projectName, 0755); err != nil {
-		panic(err)
+	presets, _ := engine.LoadPresets(root + "/presets.json")
+
+	var modules []string
+	for _, name := range input {
+		if preset, ok := presets[name]; ok {
+			modules = append(modules, preset...)
+		} else {
+			modules = append(modules, name)
+		}
 	}
 
-	modulesMap, err := engine.LoadModules("modules")
-	if err != nil {
-		panic(err)
-	}
+	modules = engine.Unique(modules)
 
-	resolved, err := engine.Resolve(modules, modulesMap)
-	if err != nil {
-		panic(err)
-	}
+	os.Mkdir(projectName, 0755)
+	os.Mkdir(projectName+"/.stackforge", 0755)
 
+	modulesMap, _ := engine.LoadModules(root + "/modules")
+	resolved, _ := engine.Resolve(modules, modulesMap)
 	osinfo := engine.DetectOS()
 
-	base, err := os.ReadFile("templates/base.sh")
-	if err != nil {
-		panic(err)
+	base, _ := os.ReadFile(root + "/templates/base.sh")
+	script, _ := engine.Assemble(resolved, string(base), osinfo)
+
+	os.WriteFile(projectName+"/.stackforge/setup.sh", []byte(script), 0755)
+
+	manifest := engine.Manifest{
+		Modules: modules,
+		OS:      osinfo.PackageManager,
 	}
 
-	script, err := engine.Assemble(resolved, string(base), osinfo)
-	if err != nil {
-		panic(err)
-	}
-
-	err = os.WriteFile(projectName+"/setup.sh", []byte(script), 0755)
-	if err != nil {
-		panic(err)
-	}
+	data, _ := json.MarshalIndent(manifest, "", "  ")
+	os.WriteFile(projectName+"/.stackforge/manifest.json", data, 0644)
 
 	fmt.Println("Project created:", projectName)
 	fmt.Println("Next:")
 	fmt.Println("  cd", projectName)
-	fmt.Println("  bash setup.sh")
+	fmt.Println("  bash .stackforge/setup.sh")
 }

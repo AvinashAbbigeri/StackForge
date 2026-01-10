@@ -1,0 +1,8 @@
+{
+  "python-api": ["fastapi", "uvicorn", "pytest", "ruff", "black", "mypy"],
+  "flask-app": ["flask", "gunicorn", "pytest"],
+  "django-app": ["django"],
+  "node-api": ["express", "eslint", "jest"],
+  "nextjs-app": ["nextjs"],
+  "react-app": ["react"]
+}
