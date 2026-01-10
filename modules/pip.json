@@ -1,0 +1,8 @@
+{
+  "id": "pip",
+  "requires": ["python"],
+  "conflicts": [],
+  "install": [],
+  "files": {},
+  "test": []
+}

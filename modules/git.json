@@ -1,0 +1,12 @@
+{
+  "id": "git",
+  "requires": [],
+  "conflicts": [],
+  "install": [
+    "sudo dnf install -y git"
+  ],
+  "files": {},
+  "test": [
+    "git --version"
+  ]
+}

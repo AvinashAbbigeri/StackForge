@@ -1,0 +1,14 @@
+{
+  "id": "flask",
+  "requires": ["python", "pip"],
+  "conflicts": [],
+  "install": [
+    "pip3 install flask"
+  ],
+  "files": {
+    "app.py": "from flask import Flask\napp = Flask(__name__)\n\n@app.route('/')\ndef hello():\n    return 'Hello from StackForge'\n\nif __name__ == '__main__':\n    app.run()"
+  },
+  "test": [
+    "python3 -c \"import flask\""
+  ]
+}
