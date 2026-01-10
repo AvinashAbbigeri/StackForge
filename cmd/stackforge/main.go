@@ -10,13 +10,28 @@ import (
 )
 
 func main() {
+	// Locate StackForge root (where modules/, templates/, presets.json live)
 	exe, _ := os.Executable()
 	root := filepath.Dir(exe)
 
+	// ---------------- Parse --dry-run ----------------
+	dryRun := false
+	var cleanArgs []string
+
+	for _, a := range os.Args[1:] {
+		if a == "--dry-run" {
+			dryRun = true
+		} else {
+			cleanArgs = append(cleanArgs, a)
+		}
+	}
+
+	os.Args = append([]string{os.Args[0]}, cleanArgs...)
+
 	if len(os.Args) < 2 {
 		fmt.Println("Usage:")
-		fmt.Println("  stackforge init <project> <modules|presets>")
-		fmt.Println("  stackforge add <modules>")
+		fmt.Println("  stackforge init <project> <modules|presets> [--dry-run]")
+		fmt.Println("  stackforge add <modules> [--dry-run]")
 		fmt.Println("  stackforge list")
 		fmt.Println("  stackforge presets")
 		return
@@ -45,7 +60,7 @@ func main() {
 	// ---------------- ADD ----------------
 	if cmd == "add" {
 		if len(os.Args) < 3 {
-			fmt.Println("Usage: stackforge add <module> [module...]")
+			fmt.Println("Usage: stackforge add <module> [module...] [--dry-run]")
 			return
 		}
 
@@ -63,14 +78,28 @@ func main() {
 		}
 
 		osinfo := engine.DetectOS()
-
 		base, _ := os.ReadFile(root + "/templates/base.sh")
-		script, err := engine.Assemble(resolved, string(base), osinfo)
+
+		plan, err := engine.Assemble(resolved, string(base), osinfo)
 		if err != nil {
 			panic(err)
 		}
 
-		os.WriteFile(".stackforge/setup.sh", []byte(script), 0755)
+		if dryRun {
+			fmt.Println("StackForge dry run")
+			fmt.Println()
+			fmt.Println("Will add:")
+			for _, m := range os.Args[2:] {
+				fmt.Println(" ", m)
+			}
+			fmt.Println("\nCommands:")
+			for _, c := range plan.Installs {
+				fmt.Println(" ", c)
+			}
+			return
+		}
+
+		os.WriteFile(".stackforge/setup.sh", []byte(plan.Script), 0755)
 		engine.SaveManifest(".stackforge/manifest.json", manifest)
 
 		fmt.Println("Modules added. Run:")
@@ -100,17 +129,35 @@ func main() {
 
 	modules = engine.Unique(modules)
 
-	os.Mkdir(projectName, 0755)
-	os.Mkdir(projectName+"/.stackforge", 0755)
-
 	modulesMap, _ := engine.LoadModules(root + "/modules")
 	resolved, _ := engine.Resolve(modules, modulesMap)
 	osinfo := engine.DetectOS()
-
 	base, _ := os.ReadFile(root + "/templates/base.sh")
-	script, _ := engine.Assemble(resolved, string(base), osinfo)
 
-	os.WriteFile(projectName+"/.stackforge/setup.sh", []byte(script), 0755)
+	plan, _ := engine.Assemble(resolved, string(base), osinfo)
+
+	if dryRun {
+		fmt.Println("StackForge dry run")
+		fmt.Println()
+		fmt.Println("Will install:")
+		for _, m := range modules {
+			fmt.Println(" ", m)
+		}
+		fmt.Println("\nCommands:")
+		for _, c := range plan.Installs {
+			fmt.Println(" ", c)
+		}
+		fmt.Println("\nFiles:")
+		for _, f := range plan.Files {
+			fmt.Println(" ", f)
+		}
+		return
+	}
+
+	os.Mkdir(projectName, 0755)
+	os.Mkdir(projectName+"/.stackforge", 0755)
+
+	os.WriteFile(projectName+"/.stackforge/setup.sh", []byte(plan.Script), 0755)
 
 	manifest := engine.Manifest{
 		Modules: modules,

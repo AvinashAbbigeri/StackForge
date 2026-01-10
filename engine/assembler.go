@@ -2,7 +2,7 @@ package engine
 
 import "strings"
 
-func Assemble(mods []Module, baseTemplate string, osinfo OSInfo) (string, error) {
+func Assemble(mods []Module, baseTemplate string, osinfo OSInfo) (Plan, error) {
 	var installs []string
 	var tests []string
 	var files []string
@@ -12,6 +12,7 @@ func Assemble(mods []Module, baseTemplate string, osinfo OSInfo) (string, error)
 		if ok {
 			installs = append(installs, cmds...)
 		}
+
 		tests = append(tests, m.Test...)
 
 		for path, content := range m.Files {
@@ -22,9 +23,14 @@ func Assemble(mods []Module, baseTemplate string, osinfo OSInfo) (string, error)
 		}
 	}
 
-	out := strings.ReplaceAll(baseTemplate, "{{install}}", strings.Join(installs, "\n"))
-	out = strings.ReplaceAll(out, "{{files}}", strings.Join(files, "\n"))
-	out = strings.ReplaceAll(out, "{{tests}}", strings.Join(tests, "\n"))
+	script := strings.ReplaceAll(baseTemplate, "{{install}}", strings.Join(installs, "\n"))
+	script = strings.ReplaceAll(script, "{{files}}", strings.Join(files, "\n"))
+	script = strings.ReplaceAll(script, "{{tests}}", strings.Join(tests, "\n"))
 
-	return out, nil
+	return Plan{
+		Installs: installs,
+		Files:    files,
+		Tests:    tests,
+		Script:   script,
+	}, nil
 }
