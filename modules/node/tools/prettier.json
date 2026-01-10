@@ -1,0 +1,16 @@
+{
+  "id": "prettier",
+  "requires": ["node", "npm"],
+  "conflicts": [],
+  "install": {
+    "dnf": ["npm install -D prettier"],
+    "apt": ["npm install -D prettier"],
+    "pacman": ["npm install -D prettier"],
+    "brew": ["npm install -D prettier"],
+    "winget": ["npm install -D prettier"]
+  },
+  "files": {
+    ".prettierrc": "{\n  \"semi\": false,\n  \"singleQuote\": true\n}\n"
+  },
+  "test": ["npx prettier --version"]
+}

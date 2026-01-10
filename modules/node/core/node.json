@@ -1,0 +1,14 @@
+{
+  "id": "node",
+  "requires": [],
+  "conflicts": [],
+  "install": {
+    "dnf": ["sudo dnf install -y nodejs"],
+    "apt": ["sudo apt install -y nodejs npm"],
+    "pacman": ["sudo pacman -S --noconfirm nodejs npm"],
+    "brew": ["brew install node"],
+    "winget": ["winget install OpenJS.NodeJS"]
+  },
+  "files": {},
+  "test": ["node --version"]
+}

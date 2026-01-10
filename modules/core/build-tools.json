@@ -1,0 +1,14 @@
+{
+  "id": "build-tools",
+  "requires": [],
+  "conflicts": [],
+  "install": {
+    "dnf": ["sudo dnf groupinstall -y 'Development Tools'"],
+    "apt": ["sudo apt install -y build-essential"],
+    "pacman": ["sudo pacman -S --noconfirm base-devel"],
+    "brew": ["brew install gcc make"],
+    "winget": ["winget install LLVM.LLVM"]
+  },
+  "files": {},
+  "test": ["gcc --version || clang --version"]
+}

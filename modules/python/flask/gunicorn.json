@@ -1,0 +1,14 @@
+{
+  "id": "gunicorn",
+  "requires": ["flask"],
+  "conflicts": [],
+  "install": {
+    "dnf": ["pip3 install gunicorn"],
+    "apt": ["pip3 install gunicorn"],
+    "pacman": ["pip install gunicorn"],
+    "brew": ["pip3 install gunicorn"],
+    "winget": ["pip install gunicorn"]
+  },
+  "files": {},
+  "test": ["gunicorn --version"]
+}

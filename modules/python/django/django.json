@@ -1,0 +1,17 @@
+{
+  "id": "django",
+  "requires": ["python", "pip", "venv"],
+  "conflicts": [],
+  "install": {
+    "dnf": ["pip3 install django"],
+    "apt": ["pip3 install django"],
+    "pacman": ["pip install django"],
+    "brew": ["pip3 install django"],
+    "winget": ["pip install django"]
+  },
+  "files": {
+    "requirements.txt": "django\n",
+    "bootstrap.sh": "django-admin startproject app ."
+  },
+  "test": ["django-admin --version"]
+}

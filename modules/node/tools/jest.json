@@ -1,0 +1,16 @@
+{
+  "id": "jest",
+  "requires": ["node", "npm"],
+  "conflicts": [],
+  "install": {
+    "dnf": ["npm install -D jest"],
+    "apt": ["npm install -D jest"],
+    "pacman": ["npm install -D jest"],
+    "brew": ["npm install -D jest"],
+    "winget": ["npm install -D jest"]
+  },
+  "files": {
+    "test/basic.test.js": "test('adds 1 + 1', () => { expect(1 + 1).toBe(2); });"
+  },
+  "test": ["npx jest --version"]
+}

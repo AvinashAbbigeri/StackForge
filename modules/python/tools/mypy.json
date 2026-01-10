@@ -1,0 +1,14 @@
+{
+  "id": "mypy",
+  "requires": ["python", "pip", "venv"],
+  "conflicts": [],
+  "install": {
+    "dnf": ["pip3 install mypy"],
+    "apt": ["pip3 install mypy"],
+    "pacman": ["pip install mypy"],
+    "brew": ["pip3 install mypy"],
+    "winget": ["pip install mypy"]
+  },
+  "files": {},
+  "test": ["mypy --version"]
+}

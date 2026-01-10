@@ -1,0 +1,16 @@
+{
+  "id": "eslint",
+  "requires": ["node", "npm"],
+  "conflicts": [],
+  "install": {
+    "dnf": ["npm install -D eslint"],
+    "apt": ["npm install -D eslint"],
+    "pacman": ["npm install -D eslint"],
+    "brew": ["npm install -D eslint"],
+    "winget": ["npm install -D eslint"]
+  },
+  "files": {
+    "eslint.config.js": "export default [\n  {\n    files: ['**/*.js'],\n    rules: {\n      'no-unused-vars': 'warn',\n      'no-undef': 'error'\n    }\n  }\n]\n"
+  },
+  "test": ["npx eslint --version"]
+}

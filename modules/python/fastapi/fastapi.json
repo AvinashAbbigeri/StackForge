@@ -1,0 +1,17 @@
+{
+  "id": "fastapi",
+  "requires": ["python", "pip", "venv"],
+  "conflicts": [],
+  "install": {
+    "dnf": ["pip3 install fastapi"],
+    "apt": ["pip3 install fastapi"],
+    "pacman": ["pip install fastapi"],
+    "brew": ["pip3 install fastapi"],
+    "winget": ["pip install fastapi"]
+  },
+  "files": {
+    "main.py": "from fastapi import FastAPI\n\napp = FastAPI()\n\n@app.get(\"/\")\ndef read_root():\n    return {\"message\": \"Hello from StackForge FastAPI\"}\n",
+    "requirements.txt": "fastapi\n"
+  },
+  "test": ["python3 -c \"import fastapi\""]
+}

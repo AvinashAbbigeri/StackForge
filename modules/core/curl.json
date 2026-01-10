@@ -1,0 +1,14 @@
+{
+  "id": "curl",
+  "requires": [],
+  "conflicts": [],
+  "install": {
+    "dnf": ["sudo dnf install -y curl"],
+    "apt": ["sudo apt install -y curl"],
+    "pacman": ["sudo pacman -S --noconfirm curl"],
+    "brew": ["brew install curl"],
+    "winget": ["winget install curl"]
+  },
+  "files": {},
+  "test": ["curl --version"]
+}

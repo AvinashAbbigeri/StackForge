@@ -1,0 +1,11 @@
+{
+  "id": "node-init",
+  "requires": ["node", "npm"],
+  "conflicts": [],
+  "install": {},
+  "files": {
+    "package.json": "{\n  \"name\": \"stackforge-app\",\n  \"version\": \"1.0.0\",\n  \"main\": \"index.js\",\n  \"scripts\": {\n    \"start\": \"node index.js\"\n  }\n}\n",
+    "index.js": "console.log('Hello from StackForge Node');"
+  },
+  "test": ["node index.js"]
+}

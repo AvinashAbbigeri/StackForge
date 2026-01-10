@@ -2,13 +2,16 @@ package engine
 
 import "strings"
 
-func Assemble(mods []Module, baseTemplate string) (string, error) {
+func Assemble(mods []Module, baseTemplate string, osinfo OSInfo) (string, error) {
 	var installs []string
 	var tests []string
 	var files []string
 
 	for _, m := range mods {
-		installs = append(installs, m.Install...)
+		cmds, ok := m.Install[osinfo.PackageManager]
+		if ok {
+			installs = append(installs, cmds...)
+		}
 		tests = append(tests, m.Test...)
 
 		for path, content := range m.Files {

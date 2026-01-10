@@ -1,0 +1,14 @@
+{
+  "id": "uvicorn",
+  "requires": ["fastapi"],
+  "conflicts": [],
+  "install": {
+    "dnf": ["pip3 install uvicorn[standard]"],
+    "apt": ["pip3 install uvicorn[standard]"],
+    "pacman": ["pip install uvicorn[standard]"],
+    "brew": ["pip3 install uvicorn[standard]"],
+    "winget": ["pip install uvicorn[standard]"]
+  },
+  "files": {},
+  "test": ["uvicorn --version"]
+}

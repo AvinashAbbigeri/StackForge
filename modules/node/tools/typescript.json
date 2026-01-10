@@ -1,0 +1,16 @@
+{
+  "id": "typescript",
+  "requires": ["node", "npm"],
+  "conflicts": [],
+  "install": {
+    "dnf": ["npm install -D typescript"],
+    "apt": ["npm install -D typescript"],
+    "pacman": ["npm install -D typescript"],
+    "brew": ["npm install -D typescript"],
+    "winget": ["npm install -D typescript"]
+  },
+  "files": {
+    "tsconfig.json": "{\n  \"compilerOptions\": {\n    \"target\": \"ES2020\",\n    \"module\": \"commonjs\",\n    \"strict\": true\n  }\n}\n"
+  },
+  "test": ["npx tsc --version"]
+}

@@ -1,0 +1,14 @@
+{
+  "id": "black",
+  "requires": ["python", "pip", "venv"],
+  "conflicts": [],
+  "install": {
+    "dnf": ["pip3 install black"],
+    "apt": ["pip3 install black"],
+    "pacman": ["pip install black"],
+    "brew": ["pip3 install black"],
+    "winget": ["pip install black"]
+  },
+  "files": {},
+  "test": ["black --version"]
+}

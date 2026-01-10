@@ -1,0 +1,14 @@
+{
+  "id": "ruff",
+  "requires": ["python", "pip", "venv"],
+  "conflicts": [],
+  "install": {
+    "dnf": ["pip3 install ruff"],
+    "apt": ["pip3 install ruff"],
+    "pacman": ["pip install ruff"],
+    "brew": ["pip3 install ruff"],
+    "winget": ["pip install ruff"]
+  },
+  "files": {},
+  "test": ["ruff --version"]
+}

@@ -1,0 +1,16 @@
+{
+  "id": "express",
+  "requires": ["node", "npm", "node-init"],
+  "conflicts": [],
+  "install": {
+    "dnf": ["npm install express"],
+    "apt": ["npm install express"],
+    "pacman": ["npm install express"],
+    "brew": ["npm install express"],
+    "winget": ["npm install express"]
+  },
+  "files": {
+    "index.js": "const express = require('express');\nconst app = express();\n\napp.get('/', (req, res) => {\n  res.send('Hello from StackForge Express');\n});\n\napp.listen(3000, () => console.log('Server running on port 3000'));\n"
+  },
+  "test": ["node index.js"]
+}

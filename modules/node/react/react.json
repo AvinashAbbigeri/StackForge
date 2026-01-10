@@ -1,0 +1,14 @@
+{
+  "id": "react",
+  "requires": ["node", "npm"],
+  "conflicts": [],
+  "install": {
+    "dnf": ["npm create vite@latest react-app -- --template react"],
+    "apt": ["npm create vite@latest react-app -- --template react"],
+    "pacman": ["npm create vite@latest react-app -- --template react"],
+    "brew": ["npm create vite@latest react-app -- --template react"],
+    "winget": ["npm create vite@latest react-app -- --template react"]
+  },
+  "files": {},
+  "test": []
+}

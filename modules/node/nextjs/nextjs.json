@@ -1,0 +1,14 @@
+{
+  "id": "nextjs",
+  "requires": ["node", "npm"],
+  "conflicts": [],
+  "install": {
+    "dnf": ["npx create-next-app@latest nextjs-app --use-npm"],
+    "apt": ["npx create-next-app@latest nextjs-app --use-npm"],
+    "pacman": ["npx create-next-app@latest nextjs-app --use-npm"],
+    "brew": ["npx create-next-app@latest nextjs-app --use-npm"],
+    "winget": ["npx create-next-app@latest nextjs-app --use-npm"]
+  },
+  "files": {},
+  "test": []
+}

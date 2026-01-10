@@ -1,0 +1,16 @@
+{
+  "id": "pytest",
+  "requires": ["python", "pip", "venv"],
+  "conflicts": [],
+  "install": {
+    "dnf": ["pip3 install pytest"],
+    "apt": ["pip3 install pytest"],
+    "pacman": ["pip install pytest"],
+    "brew": ["pip3 install pytest"],
+    "winget": ["pip install pytest"]
+  },
+  "files": {
+    "tests/test_basic.py": "def test_example():\n    assert 1 + 1 == 2\n"
+  },
+  "test": ["pytest --version"]
+}

@@ -1,0 +1,17 @@
+{
+  "id": "flask",
+  "requires": ["python", "pip", "venv"],
+  "conflicts": [],
+  "install": {
+    "dnf": ["pip3 install flask"],
+    "apt": ["pip3 install flask"],
+    "pacman": ["pip install flask"],
+    "brew": ["pip3 install flask"],
+    "winget": ["pip install flask"]
+  },
+  "files": {
+    "app.py": "from flask import Flask\napp = Flask(__name__)\n\n@app.route('/')\ndef home():\n    return 'Hello from StackForge Flask!'\n\nif __name__ == '__main__':\n    app.run()",
+    "requirements.txt": "flask\n"
+  },
+  "test": ["python3 -c \"import flask\""]
+}

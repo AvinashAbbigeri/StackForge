@@ -1,0 +1,16 @@
+{
+  "id": "venv",
+  "requires": ["python"],
+  "conflicts": [],
+  "install": {
+    "dnf": ["sudo dnf install -y python3-virtualenv"],
+    "apt": ["sudo apt install -y python3-venv"],
+    "pacman": ["sudo pacman -S --noconfirm python-virtualenv"],
+    "brew": [],
+    "winget": []
+  },
+  "files": {
+    ".venv_setup.sh": "python3 -m venv venv\nsource venv/bin/activate"
+  },
+  "test": ["python3 -m venv --help"]
+}

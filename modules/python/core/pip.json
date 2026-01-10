@@ -1,0 +1,14 @@
+{
+  "id": "pip",
+  "requires": ["python"],
+  "conflicts": [],
+  "install": {
+    "dnf": ["sudo dnf install -y python3-pip"],
+    "apt": ["sudo apt install -y python3-pip"],
+    "pacman": ["sudo pacman -S --noconfirm python-pip"],
+    "brew": [],
+    "winget": []
+  },
+  "files": {},
+  "test": ["pip3 --version || pip --version"]
+}

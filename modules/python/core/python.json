@@ -1,0 +1,14 @@
+{
+  "id": "python",
+  "requires": [],
+  "conflicts": [],
+  "install": {
+    "dnf": ["sudo dnf install -y python3"],
+    "apt": ["sudo apt install -y python3"],
+    "pacman": ["sudo pacman -S --noconfirm python"],
+    "brew": ["brew install python"],
+    "winget": ["winget install --id Python.Python.3 -e"]
+  },
+  "files": {},
+  "test": ["python3 --version || python --version"]
+}

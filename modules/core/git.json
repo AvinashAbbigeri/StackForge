@@ -1,0 +1,14 @@
+{
+  "id": "git",
+  "requires": [],
+  "conflicts": [],
+  "install": {
+    "dnf": ["sudo dnf install -y git"],
+    "apt": ["sudo apt install -y git"],
+    "pacman": ["sudo pacman -S --noconfirm git"],
+    "brew": ["brew install git"],
+    "winget": ["winget install --id Git.Git -e"]
+  },
+  "files": {},
+  "test": ["git --version"]
+}
