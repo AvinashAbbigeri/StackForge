@@ -3,29 +3,28 @@ package engine
 import (
 	"encoding/json"
 	"fmt"
+	"io/fs"
 	"os"
-	"path/filepath"
+	"strings"
 )
 
 func LoadModules(root string) (map[string]Module, error) {
 	modules := make(map[string]Module)
 
-	err := filepath.WalkDir(root, func(path string, d os.DirEntry, err error) error {
+	var fsys fs.FS = os.DirFS(root)
+	if EmbeddedFS != nil {
+		fsys = EmbeddedFS
+	}
+
+	err := fs.WalkDir(fsys, "modules", func(path string, d fs.DirEntry, err error) error {
 		if err != nil {
 			return err
 		}
-
-		// Skip folders
-		if d.IsDir() {
+		if d.IsDir() || !strings.HasSuffix(path, ".json") {
 			return nil
 		}
 
-		// Only JSON files
-		if filepath.Ext(path) != ".json" {
-			return nil
-		}
-
-		data, err := os.ReadFile(path)
+		data, err := fs.ReadFile(fsys, path)
 		if err != nil {
 			return err
 		}
@@ -35,21 +34,9 @@ func LoadModules(root string) (map[string]Module, error) {
 			return fmt.Errorf("error in %s: %w", path, err)
 		}
 
-		if m.ID == "" {
-			return fmt.Errorf("module %s has no id", path)
-		}
-
-		if _, exists := modules[m.ID]; exists {
-			return fmt.Errorf("duplicate module id: %s", m.ID)
-		}
-
 		modules[m.ID] = m
 		return nil
 	})
 
-	if err != nil {
-		return nil, err
-	}
-
-	return modules, nil
+	return modules, err
 }

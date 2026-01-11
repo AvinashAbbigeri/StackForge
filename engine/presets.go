@@ -2,21 +2,27 @@ package engine
 
 import (
 	"encoding/json"
+	"io/fs"
 	"os"
 )
 
 func LoadPresets(path string) (map[string][]string, error) {
-	data, err := os.ReadFile(path)
+	var data []byte
+	var err error
+
+	if EmbeddedFS != nil {
+		data, err = fs.ReadFile(EmbeddedFS, "presets.json")
+	} else {
+		data, err = os.ReadFile(path)
+	}
+
 	if err != nil {
 		return nil, err
 	}
 
 	var presets map[string][]string
-	if err := json.Unmarshal(data, &presets); err != nil {
-		return nil, err
-	}
-
-	return presets, nil
+	err = json.Unmarshal(data, &presets)
+	return presets, err
 }
 
 func PresetNames(p map[string][]string) []string {
