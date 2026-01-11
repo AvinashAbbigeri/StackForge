@@ -1,0 +1,8 @@
+{
+  "id": "go-fmt",
+  "requires": ["go"],
+  "conflicts": [],
+  "install": {},
+  "files": {},
+  "test": ["gofmt -w ."]
+}

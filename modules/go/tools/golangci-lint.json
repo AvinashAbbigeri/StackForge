@@ -1,0 +1,20 @@
+{
+  "id": "golangci-lint",
+  "requires": ["go"],
+  "conflicts": [],
+  "install": {
+    "dnf": [
+      "curl -sSfL https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh | sh -s -- -b $(go env GOPATH)/bin"
+    ],
+    "apt": [
+      "curl -sSfL https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh | sh -s -- -b $(go env GOPATH)/bin"
+    ],
+    "pacman": ["sudo pacman -S --noconfirm golangci-lint"],
+    "brew": ["brew install golangci-lint"],
+    "winget": ["winget install golangci-lint"]
+  },
+  "files": {
+    ".golangci.yml": "run:\n  timeout: 3m\nlinters:\n  enable:\n    - govet\n    - errcheck\n    - staticcheck\n"
+  },
+  "test": ["[ -n \"$(find . -name '*.go' -print -quit)\" ] && golangci-lint run || echo 'No Go files to lint'"]
+}

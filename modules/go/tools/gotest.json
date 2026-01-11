@@ -1,0 +1,10 @@
+{
+  "id": "go-test",
+  "requires": ["go"],
+  "conflicts": [],
+  "install": {},
+  "files": {
+    "main_test.go": "package main\n\nimport \"testing\"\n\nfunc TestBasic(t *testing.T) {\n  if 1+1 != 2 {\n    t.Fatal(\"math is broken\")\n  }\n}\n"
+  },
+ "test": ["[ -n \"$(find . -name '*.go' -print -quit)\" ] && go test ./... || echo 'No Go files yet'"]
+}

@@ -1,0 +1,14 @@
+{
+  "id": "java",
+  "requires": [],
+  "conflicts": [],
+  "install": {
+    "dnf": ["sudo dnf install -y java-openjdk"],
+    "apt": ["sudo apt install -y default-jdk"],
+    "pacman": ["sudo pacman -S --noconfirm jdk-openjdk"],
+    "brew": ["brew install openjdk"],
+    "winget": ["winget install EclipseAdoptium.Temurin"]
+  },
+  "files": {},
+  "test": ["java -version"]
+}

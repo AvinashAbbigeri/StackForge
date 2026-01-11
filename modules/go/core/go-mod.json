@@ -1,0 +1,14 @@
+{
+  "id": "go-mod",
+  "requires": ["go"],
+  "conflicts": [],
+  "install": {
+  "dnf": ["go mod init app"],
+  "apt": ["go mod init app"],
+  "pacman": ["go mod init app"],
+  "brew": ["go mod init app"],
+  "winget": ["go mod init app"]
+  },
+  "files": {},
+  "test": ["go env GOMOD"]
+}

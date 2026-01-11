@@ -1,0 +1,16 @@
+{
+  "id": "gin",
+  "requires": ["go", "go-mod"],
+  "conflicts": [],
+  "install": {
+  "dnf": ["go get -u github.com/gin-gonic/gin"],
+  "apt": ["go get -u github.com/gin-gonic/gin"],
+  "pacman": ["go get -u github.com/gin-gonic/gin"],
+  "brew": ["go get -u github.com/gin-gonic/gin"],
+  "winget": ["go get -u github.com/gin-gonic/gin"]
+},
+  "files": {
+    "main.go": "package main\n\nimport \"github.com/gin-gonic/gin\"\n\nfunc main() {\n  r := gin.Default()\n  r.GET(\"/\", func(c *gin.Context) {\n    c.JSON(200, gin.H{\"message\": \"Hello from StackForge + Gin\"})\n  })\n  r.Run() // :8080\n}\n"
+  },
+  "test": ["go run main.go"]
+}

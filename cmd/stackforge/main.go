@@ -41,7 +41,10 @@ func main() {
 
 	// ---------------- LIST ----------------
 	if cmd == "list" {
-		mods, _ := engine.LoadModules(root + "/modules")
+		mods, err := engine.LoadModules(root + "/modules")
+		if err != nil {
+			panic(err)
+		}
 		for _, m := range engine.ListModules(mods) {
 			fmt.Println(m)
 		}
@@ -71,7 +74,11 @@ func main() {
 
 		manifest.Modules = engine.Unique(append(manifest.Modules, os.Args[2:]...))
 
-		modulesMap, _ := engine.LoadModules(root + "/modules")
+		modulesMap, err := engine.LoadModules(root + "/modules")
+		if err != nil {
+			panic(err)
+		}
+
 		resolved, err := engine.Resolve(manifest.Modules, modulesMap)
 		if err != nil {
 			panic(err)
@@ -129,8 +136,16 @@ func main() {
 
 	modules = engine.Unique(modules)
 
-	modulesMap, _ := engine.LoadModules(root + "/modules")
-	resolved, _ := engine.Resolve(modules, modulesMap)
+	modulesMap, err := engine.LoadModules(root + "/modules")
+	if err != nil {
+		panic(err)
+	}
+
+	resolved, err := engine.Resolve(modules, modulesMap)
+	if err != nil {
+		panic(err)
+	}
+
 	osinfo := engine.DetectOS()
 	base, _ := os.ReadFile(root + "/templates/base.sh")
 

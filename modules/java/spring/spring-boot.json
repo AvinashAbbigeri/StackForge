@@ -1,0 +1,12 @@
+{
+  "id": "spring-boot",
+  "requires": ["java", "maven"],
+  "conflicts": [],
+  "commands": [
+    "mvn -q archetype:generate -DgroupId=com.stackforge -DartifactId=app -DarchetypeArtifactId=maven-archetype-quickstart -DinteractiveMode=false"
+  ],
+  "files": {
+    "pom.xml": "<project xmlns=\"http://maven.apache.org/POM/4.0.0\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"\n xsi:schemaLocation=\"http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd\">\n\n  <modelVersion>4.0.0</modelVersion>\n\n  <groupId>com.stackforge</groupId>\n  <artifactId>app</artifactId>\n  <version>0.0.1-SNAPSHOT</version>\n\n  <parent>\n    <groupId>org.springframework.boot</groupId>\n    <artifactId>spring-boot-starter-parent</artifactId>\n    <version>3.3.0</version>\n  </parent>\n\n  <dependencies>\n    <dependency>\n      <groupId>org.springframework.boot</groupId>\n      <artifactId>spring-boot-starter-web</artifactId>\n    </dependency>\n\n    <dependency>\n      <groupId>org.springframework.boot</groupId>\n      <artifactId>spring-boot-starter-test</artifactId>\n      <scope>test</scope>\n    </dependency>\n  </dependencies>\n\n</project>\n"
+  },
+  "test": ["mvn test"]
+}

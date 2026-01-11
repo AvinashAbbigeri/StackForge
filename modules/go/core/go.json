@@ -1,0 +1,14 @@
+{
+  "id": "go",
+  "requires": [],
+  "conflicts": [],
+  "install": {
+    "dnf": ["sudo dnf install -y golang"],
+    "apt": ["sudo apt install -y golang"],
+    "pacman": ["sudo pacman -S --noconfirm go"],
+    "brew": ["brew install go"],
+    "winget": ["winget install GoLang.Go"]
+  },
+  "files": {},
+  "test": ["go version"]
+}

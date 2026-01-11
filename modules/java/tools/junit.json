@@ -1,0 +1,10 @@
+{
+  "id": "junit",
+  "requires": ["java", "maven"],
+  "conflicts": [],
+  "install": {},
+  "files": {
+    "src/test/java/AppTest.java": "import org.junit.jupiter.api.Test;\nimport static org.junit.jupiter.api.Assertions.*;\n\npublic class AppTest {\n  @Test\n  void testBasic() {\n    assertEquals(2, 1 + 1);\n  }\n}\n"
+  },
+  "test": ["mvn test"]
+}

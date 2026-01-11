@@ -1,0 +1,14 @@
+{
+  "id": "maven",
+  "requires": ["java"],
+  "conflicts": [],
+  "install": {
+    "dnf": ["sudo dnf install -y maven"],
+    "apt": ["sudo apt install -y maven"],
+    "pacman": ["sudo pacman -S --noconfirm maven"],
+    "brew": ["brew install maven"],
+    "winget": ["winget install Apache.Maven"]
+  },
+  "files": {},
+  "test": ["mvn -version"]
+}

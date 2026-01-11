@@ -1,0 +1,16 @@
+{
+  "id": "gorilla",
+  "requires": ["go", "go-mod"],
+  "conflicts": [],
+  "install": {
+  "dnf": ["go get github.com/gorilla/mux"],
+  "apt": ["go get github.com/gorilla/mux"],
+  "pacman": ["go get github.com/gorilla/mux"],
+  "brew": ["go get github.com/gorilla/mux"],
+  "winget": ["go get github.com/gorilla/mux"]
+},
+  "files": {
+    "main.go": "package main\n\nimport (\n  \"log\"\n  \"net/http\"\n  \"github.com/gorilla/mux\"\n)\n\nfunc main() {\n  r := mux.NewRouter()\n  r.HandleFunc(\"/\", func(w http.ResponseWriter, r *http.Request) {\n    w.Write([]byte(\"Hello from StackForge + Gorilla\"))\n  })\n\n  log.Println(\"Server running on :8080\")\n  log.Fatal(http.ListenAndServe(\":8080\", r))\n}\n"
+  },
+  "test": ["go run main.go"]
+}

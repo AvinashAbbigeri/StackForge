@@ -1,0 +1,31 @@
+{
+  "id": "cobra",
+  "requires": [
+    "go",
+    "go-mod"
+  ],
+  "conflicts": [],
+  "install": {
+    "dnf": [
+      "go get github.com/spf13/cobra@latest"
+    ],
+    "apt": [
+      "go get github.com/spf13/cobra@latest"
+    ],
+    "pacman": [
+      "go get github.com/spf13/cobra@latest"
+    ],
+    "brew": [
+      "go get github.com/spf13/cobra@latest"
+    ],
+    "winget": [
+      "go get github.com/spf13/cobra@latest"
+    ]
+  },
+  "files": {
+    "main.go": "package main\n\nimport (\n  \"fmt\"\n  \"github.com/spf13/cobra\"\n)\n\nfunc main() {\n  rootCmd := &cobra.Command{\n    Use:   \"app\",\n    Short: \"StackForge Cobra CLI\",\n    Run: func(cmd *cobra.Command, args []string) {\n      fmt.Println(\"Hello from StackForge + Cobra\")\n    },\n  }\n\n  rootCmd.Execute()\n}\n"
+  },
+  "test": [
+    "go run main.go"
+  ]
+}

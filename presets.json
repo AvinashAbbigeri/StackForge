@@ -1,8 +1,15 @@
 {
+  "python-basic": ["python", "pip", "venv"],
   "python-api": ["fastapi", "uvicorn", "pytest", "ruff", "black", "mypy"],
   "flask-app": ["flask", "gunicorn", "pytest"],
   "django-app": ["django"],
+  "node-basic": ["node", "npm"],
   "node-api": ["express", "eslint", "jest"],
   "nextjs-app": ["nextjs"],
-  "react-app": ["react"]
+  "react-app": ["react"],
+  "go-basic": ["go", "go-mod"],
+  "go-cli": ["go", "cobra", "go-fmt", "go-test"],
+  "go-api": ["go", "go-mod", "gin", "go-fmt", "go-test", "golangci-lint"],
+  "java-basic": ["java", "maven"],
+  "java-api": ["java", "maven", "spring-boot", "junit"]
 }

@@ -3,6 +3,8 @@ set -e
 
 {{install}}
 
+{{commands}}
+
 {{files}}
 
 {{tests}}

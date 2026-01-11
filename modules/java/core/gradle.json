@@ -1,0 +1,14 @@
+{
+  "id": "gradle",
+  "requires": ["java"],
+  "conflicts": [],
+  "install": {
+    "dnf": ["sudo dnf install -y gradle"],
+    "apt": ["sudo apt install -y gradle"],
+    "pacman": ["sudo pacman -S --noconfirm gradle"],
+    "brew": ["brew install gradle"],
+    "winget": ["winget install Gradle.Gradle"]
+  },
+  "files": {},
+  "test": ["gradle -v"]
+}
