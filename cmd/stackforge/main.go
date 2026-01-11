@@ -9,6 +9,29 @@ import (
 	"StackForge/engine"
 )
 
+func printHelp() {
+	fmt.Print(`StackForge – cross-platform dev environment generator
+
+Usage:
+  stackforge init <project> <modules|presets> [--dry-run]
+  stackforge add <modules> [--dry-run]
+  stackforge list
+  stackforge presets
+  stackforge version
+  stackforge --help
+
+Examples:
+  stackforge init api python-api
+  stackforge init web nextjs-app --dry-run
+  stackforge add pytest ruff
+  stackforge list
+  stackforge presets
+
+Flags:
+  --dry-run   Show what will happen without making changes
+`)
+}
+
 func main() {
 	// Locate StackForge root (where modules/, templates/, presets.json live)
 	exe, _ := os.Executable()
@@ -28,16 +51,23 @@ func main() {
 
 	os.Args = append([]string{os.Args[0]}, cleanArgs...)
 
+	// ---------------- HELP / VERSION ----------------
 	if len(os.Args) < 2 {
-		fmt.Println("Usage:")
-		fmt.Println("  stackforge init <project> <modules|presets> [--dry-run]")
-		fmt.Println("  stackforge add <modules> [--dry-run]")
-		fmt.Println("  stackforge list")
-		fmt.Println("  stackforge presets")
+		printHelp()
 		return
 	}
 
 	cmd := os.Args[1]
+
+	if cmd == "--help" || cmd == "-h" {
+		printHelp()
+		return
+	}
+
+	if cmd == "version" || cmd == "--version" || cmd == "-v" {
+		printVersion()
+		return
+	}
 
 	// ---------------- LIST ----------------
 	if cmd == "list" {
@@ -117,6 +147,8 @@ func main() {
 	// ---------------- INIT ----------------
 	if cmd != "init" {
 		fmt.Println("Unknown command:", cmd)
+		fmt.Println()
+		printHelp()
 		return
 	}
 
