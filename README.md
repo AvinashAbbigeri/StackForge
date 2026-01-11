@@ -39,21 +39,36 @@ Modern project bootstrapping tools often:
 
 ---
 
-## Installation
+## CLI Usage
 
-### Download binary
-
-Download the latest release from GitHub Releases:
-
-```bash
-chmod +x stackforge
-sudo mv stackforge /usr/local/bin/
 ```
-
-Verify:
-```bash
+stackforge init <project> <modules|presets> [--dry-run]
+stackforge add <modules> [--dry-run]
+stackforge list
+stackforge presets
 stackforge --help
+stackforge --version
 ```
+
+### Examples
+
+```
+stackforge init api python-api
+stackforge init web nextjs-app --dry-run
+stackforge add pytest ruff
+stackforge list
+stackforge presets
+```
+
+---
+
+## Version Information
+
+```
+stackforge --version
+```
+
+Displays the StackForge ASCII logo, tool description, and current version.
 
 ---
 
@@ -61,7 +76,7 @@ stackforge --help
 
 ### Initialize a project using a preset
 
-```bash
+```
 stackforge init my-api python-api
 cd my-api
 bash .stackforge/setup.sh
@@ -69,7 +84,7 @@ bash .stackforge/setup.sh
 
 ### Dry run (recommended)
 
-```bash
+```
 stackforge init my-api python-api --dry-run
 ```
 
@@ -77,7 +92,7 @@ stackforge init my-api python-api --dry-run
 
 ## Add modules to an existing project
 
-```bash
+```
 stackforge add black ruff
 bash .stackforge/setup.sh
 ```
@@ -108,7 +123,7 @@ bash .stackforge/setup.sh
 - java-api
 
 List presets:
-```bash
+```
 stackforge presets
 ```
 
@@ -122,7 +137,7 @@ Modules are small, declarative JSON definitions that describe:
 - basic tests
 
 List all modules:
-```bash
+```
 stackforge list
 ```
 
@@ -130,7 +145,7 @@ stackforge list
 
 ## Project Structure
 
-```text
+```
 my-project/
 ├── .stackforge/
 │   ├── setup.sh
@@ -139,7 +154,7 @@ my-project/
 ```
 
 - `setup.sh` → reproducible setup script
-- `manifest.json` → enabled modules
+- `manifest.json` → enabled modules and detected OS
 
 ---
 
@@ -157,8 +172,8 @@ StackForge coordinates existing tools — it does not replace them.
 
 ## Roadmap
 
-- Package manager installers (dnf / apt / brew)
 - Rebuild from manifest & lockfile
+- Package manager helpers (dnf / apt / brew)
 - Official website & documentation
 - Community modules
 - Optional version locking
@@ -183,5 +198,5 @@ Open an issue or pull request to get started.
 
 ---
 
-Built with care.  
+Built with care.
 Designed to stay simple, fast, and honest.
